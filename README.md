@@ -18,4 +18,11 @@ In this milestone we created structure of the project by  setting  up the fronte
 - First creating a structured folder for the project
 - Then Setting up  React app for the frontend and a Node.js server for the backend and installing express,mongoose,nodemon and cors
 - Implemented  Tailwind CSS for styling.
-- Then created Login Page for authorization . 
+- Then created Login Page for authorization .
+
+## Milestone 3:
+-Setting  up the node.js server to handle api requests.
+-Setting up  folders for  backend code 
+-Connecting  application  the to MongoDB
+-Connecting  the database and server
+-Create a error handler

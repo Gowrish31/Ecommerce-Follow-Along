@@ -30,3 +30,10 @@ In this milestone we created structure of the project by  setting  up the fronte
 -Connecting  the database and server
 
 -Create a error handler
+## Milestone 4:
+- Creating User Model :-A model is like a detailed map or plan,designing how a user’s data (like name, email, and password) will look in the database.
+- Creating User Controller for handelling all the actions such as  adding a new user , updating their info and even accesing data.
+- Finnaly Setting up Multer for file uploads 
+
+
+

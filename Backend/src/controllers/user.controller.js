@@ -1,20 +1,39 @@
-
-const UserModel = require('../models/user.model')
-
-export async function createUser(req,res){
-    const {Name,email,password} = req.body;
-    const CheckUserPresent = await UserModel.findOne({
-        email:  email,
+const userModel=require('../models/user.model.js')
+const ErrorHandler=require("../utils/ErrorHandler.js")
+const transporter=require("../utils/sendmail.js")
+async function createUser(req,res){
+    const {Name,email,password}=req.body
+    const checkUserPresent=await userModel.findOne({
+        email:email,
     })
-    if(CheckUserPresent){
-        return res.send('User already exists')
+    if (checkUserPresent){
+        return new ErrorHandler("Already present in database",400)
     }
-    new UserModel({
-        Name: Name,
-        email: email,
-        password: password,
-
+    const newUser=new userModel({
+        Name:Name,
+        email,email,
+        password:password
     })
-    await UserModel.save();
-    return res.send('user created sauccesfully');
+    await transporter.sendMail({
+        to:'isaac.reji@kalvium.community',
+        from: 'gowrishankar.s@kalvium.community',
+        subject:'verification email',
+        text:'Text',
+        html:'<h1>Hello world</h1>'
+    })
+ const data = {
+    Name,
+    email,
+    password,
+ }
+ const token  = generateToken(data)
+
+
+    await newUser.save()
+    return res.send("User Created Succesfully")
 }
+const generateToken = (data)=>{
+    const token  = jwt.sign({name:data.name,email:data.email},process.env)
+    return token
+}
+module.exports=createUser

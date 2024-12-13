@@ -35,5 +35,19 @@ In this milestone we created structure of the project by  setting  up the fronte
 - Creating User Controller for handelling all the actions such as  adding a new user , updating their info and even accesing data.
 - Finnaly Setting up Multer for file uploads 
 
+## Milestone 5:
+In this assignment we created the frontend UI for users to register by filling out their details
+
+created a sign up page which included:
+-Name,
+
+-Email,
+
+-Password
+
+And implemented Form validation,
+
+Adding form validation to ensure users input valid data
+
 
 

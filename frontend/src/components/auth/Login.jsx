@@ -1,27 +1,32 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-
 function LoginPage() {
-  const [userCredentials, setUserCredentials] = useState({
-    userEmail: '',
-    userPassword: '',
+  const [credentials, setCreds] = useState({
+    email: '',
+    password: '',
   });
-
-  const handleInputChange = (event) => {
+  const handleChange = (event) => {
     const { name, value } = event.target;
     console.log(name, value);
-    setUserCredentials({
-      ...userCredentials,
+    setCreds({
+      ...credentials,
       [name]: value,
     });
   };
-
+  // const handleClickLogin = () => {
+  //   // axios request to backend
+  // };
 
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-800">
-          Log in to your account
+        <img
+          className="mx-auto h-10 w-auto"
+          src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
+          alt="Your Company"
+        />
+        <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
+          Login in to your account
         </h2>
       </div>
 
@@ -29,21 +34,20 @@ function LoginPage() {
         <form className="space-y-6" action="#" method="POST">
           <div>
             <label
-              htmlFor="userEmail"
-              className="block text-sm/6 font-medium text-gray-800"
+              className="block text-sm/6 font-medium text-gray-900"
             >
               Email address
             </label>
             <div className="mt-2">
               <input
                 type="email"
-                name="userEmail"
-                id="userEmail"
+                name="email"
+                id="email"
                 autoComplete="email"
                 required
-                value={userCredentials.userEmail}
-                onChange={handleInputChange}
-                className="text-black block w-full rounded-md bg-white px-3 py-1.5 text-base outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-teal-600 sm:text-sm/6"
+                value={credentials.email}
+                onChange={handleChange}
+                className=" text-black block w-full rounded-md bg-white px-3 py-1.5 text-base outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
               />
             </div>
           </div>
@@ -51,15 +55,14 @@ function LoginPage() {
           <div>
             <div className="flex items-center justify-between">
               <label
-                htmlFor="userPassword"
-                className="block text-sm/6 font-medium text-gray-800"
+                className="block text-sm/6 font-medium text-gray-900"
               >
                 Password
               </label>
               <div className="text-sm">
                 <a
                   href="#"
-                  className="font-semibold"
+                  className="font-semibold text-indigo-600 hover:text-indigo-500"
                 >
                   Forgot password?
                 </a>
@@ -68,12 +71,12 @@ function LoginPage() {
             <div className="mt-2">
               <input
                 type="password"
-                name="userPassword"
-                id="userPassword"
+                name="password"
+                id="password"
                 autoComplete="current-password"
                 required
-                onChange={handleInputChange}
-                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-teal-600 sm:text-sm/6"
+                onChange={handleChange}
+                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
               />
             </div>
           </div>
@@ -81,14 +84,14 @@ function LoginPage() {
           <div>
             <button
               type="submit"
-              className="flex w-full justify-center rounded-md bg-violet-700 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
-              Log in
+              Sign in
             </button>
-            <p className="text-center">
-          Do not have an account ? <Link to={'/signup'}>SignUp</Link>
-        </p>
           </div>
+          <p className="text-center">
+            Dont have an account ? <Link to={'/signup'}>Sign up</Link>
+          </p>
         </form>
       </div>
     </div>
@@ -96,3 +99,4 @@ function LoginPage() {
 }
 
 export default LoginPage;
+

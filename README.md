@@ -49,8 +49,14 @@ And implemented Form validation,
 
 Adding form validation to ensure users input valid data
 
+## Milestone 6:
+1) Generated a JWT token for the user at signup.
+2) Created a verification link with the token.
+3) Configured Nodemailer to send the email with the verification link.
+4) Created an endpoint to verify the token and activate the user.
+
 ## Milestone 7
- - In thsi assignment we created two routes , one for signup and login page
+ - In this assignment we created two routes , one for signup and login page
  -  Signup:
    1. requested  the data sent by the user
    2. if user is  present in the DB , login success, else  Create a user and store the name, email, password in DB
@@ -61,6 +67,3 @@ Adding form validation to ensure users input valid data
       1. if present  create a token and send that as cookies 
       2. else return saying Signup first
    
-
-
-

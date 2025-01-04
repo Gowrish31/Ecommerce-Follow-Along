@@ -49,11 +49,7 @@ And implemented Form validation,
 
 Adding form validation to ensure users input valid data
 
-##Milestone 6:
-1) Generated a JWT token for the user at signup.
-2) Created a verification link with the token.
-3) Configured Nodemailer to send the email with the verification link.
-4) Created an endpoint to verify the token and activate the user.
+
 
 
 

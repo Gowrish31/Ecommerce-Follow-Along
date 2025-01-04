@@ -49,5 +49,18 @@ And implemented Form validation,
 
 Adding form validation to ensure users input valid data
 
+## Milestone 7
+ - In thsi assignment we created two routes , one for signup and login page
+ -  Signup:
+   1. requested  the data sent by the user
+   2. if user is  present in the DB , login success, else  Create a user and store the name, email, password in DB
+     
+- For Login:
+   1. Take the data from  req.body
+   2. Checking if the user entry is present in DB .
+      1. if present  create a token and send that as cookies 
+      2. else return saying Signup first
+   
+
 
 

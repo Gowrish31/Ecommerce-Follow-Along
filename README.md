@@ -107,3 +107,8 @@ And implemented Form validation,
 - writing the get endpoint and fetch data from the database.
 - tested using postman 
 -added new route 
+
+## Milestone 12
+- we display all the items or the products in a better structured way
+-we fetch the products using getproducts function in Homepage.jsx
+-finnaly we display in frontend

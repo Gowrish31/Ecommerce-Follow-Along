@@ -1,28 +1,35 @@
-import { useState } from 'react';
-import Card from '../components/ProductCard/Card';
-
+import React, { useEffect, useState } from 'react'
+import Card from '../components/ProductCard/Card'
+import axios from 'axios';
+import { Car } from 'lucide-react';
 function HomePage() {
-  const [data, setdata] = useState(
-    new Array(20).fill({ title: 'Product Title' })
-  );
+    const [products, setProducts] = useState([])
 
-  console.log(data);
+    const getProducts = async () => {
+      const response = await axios.get('http://localhost:8080/product/get-products');
+      setProducts(response.data.data);  
+    }
 
-  return (
-    <div>
-      <h1 className="text-center">Home Page fro Follow along</h1>
-
-      <div className="grid grid-cols-3">
-        {data.map((ele, index) => {
-          return (
-            <div key={index} style={{ margin: 'auto' }} className="border border-white">
-              <Card title={ele.title} Index={index} />
-            </div>
-          );
-        })}
-      </div>
+    useEffect(()=>{
+      const callProducts = async () => {
+        await getProducts();
+      }
+      callProducts();
+    },[]);
+    console.log(products);
+    
+      
+  return(
+    <>
+    <div className='grid gap-4 grid-cols-3'>
+        {products.map( (element, index)=> ( 
+          <Card product = {element} key={index}/>
+        ))}
+        
     </div>
-  );
+    </>
+  )
+   
 }
 
-export default HomePage;
+export default HomePage

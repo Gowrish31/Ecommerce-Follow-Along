@@ -1,29 +1,36 @@
-const mongoose = require('mongoose')
- const userSchema = new mongoose.Schema({
-    Name: {type: string,require: [true,'please enter the name...']},
-    email: {type: string ,
-        require: [true,'please enter the email..'], 
-        unique:[true,'please enter unique email address...']},
-    password: {type: string,require: [true,'please enter the password...']},
-    address: [
-        {city:string},
-        {country:string},
-        {add1:string},
-        {add2:string},
-        {zipcode:string},
-        {addressType:string},
+const mongoose = require('mongoose');
 
-    ],
-    role: {type:string,default:'user'},
-    avatar: {
-        url: {type:string,require:true},
-        public_id: {type:string,require:true},
+const userSchema = new mongoose.Schema(
+  {
+    Name: { type: String, required: [true, 'Please Enter the Name...'] },
+    email: {
+      type: String,
+      required: [true, 'Please Enter Email.. '],
+      unique: [true, 'Please enter Unique Email Address'],
     },
-    resetPasswordToken : String,
-    resetPasswrodDate: Date,    
+    password: {
+      type: String,
+      required: [true, 'Please enter the password...'],
+    },
+    address: [
+      { city: String },
+      { country: String },
+      { add1: String },
+      { add2: String },
+      { zipCode: String },
+      { addressType: String },
+    ],
+    role: { type: String, default: 'user' },
+    avatar: {
+      url: { type: String, required: true },
+      public_id: { type: String, required: true },
+    },
+    resetPaswordToken: String,
+    resetPasswordTime: Date,
+  },
+  { versionKey: false }
+);
 
- },
- { versionKey:false}
-); 
- const UserModel = mongoose.model('user',userSchema)
- module.exports = UserModel
+const UserModel = mongoose.model('User', userSchema);
+
+module.exports = UserModel;

@@ -68,4 +68,15 @@ Adding form validation to ensure users input valid data
       2. else return saying Signup first
    
 
+## Milestone 8
+-Added a Card Component.
+-Displayed all products using dummy data on the Home Page.
 
+## Milestone 9
+-Created a Product Entry Form.
+-Used form data to send information through a network call.
+
+## Milestone 10
+-Created a Product Schema.
+-Built an endpoint to save data into the database.
+-Integrated Cloudinary and Multer for file handling.

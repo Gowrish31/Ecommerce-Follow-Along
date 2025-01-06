@@ -105,3 +105,5 @@ And implemented Form validation,
 
 ## Milestone 11
 - writing the get endpoint and fetch data from the database.
+- tested using postman 
+-added new route 

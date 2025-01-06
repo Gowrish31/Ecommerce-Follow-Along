@@ -101,3 +101,7 @@ And implemented Form validation,
 -Created a Product Schema.
 -Built an endpoint to save data into the database
 -Integrated Cloudinary and Multer for file handling
+
+
+## Milestone 11
+- writing the get endpoint and fetch data from the database.

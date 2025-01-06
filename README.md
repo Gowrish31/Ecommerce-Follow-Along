@@ -78,5 +78,5 @@ Adding form validation to ensure users input valid data
 
 ## Milestone 10
 -Created a Product Schema.
--Built an endpoint to save data into the database.
--Integrated Cloudinary and Multer for file handling.
+-Built an endpoint to save data into the database
+-Integrated Cloudinary and Multer for file handling

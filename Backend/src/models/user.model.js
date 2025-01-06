@@ -1,3 +1,5 @@
+
+
 const mongoose = require('mongoose')
  const userSchema = new mongoose.Schema({
     Name: {type: String,require: [true,'please enter the name...']},
@@ -13,17 +15,40 @@ const mongoose = require('mongoose')
         {zipcode:String},
         {addressType:String},
 
+
+const userSchema = new mongoose.Schema(
+  {
+    Name: { type: String, required: [true, 'Please Enter the Name...'] },
+    email: {
+      type: String,
+      required: [true, 'Please Enter Email.. '],
+      unique: [true, 'Please enter Unique Email Address'],
+    },
+    password: {
+      type: String,
+      required: [true, 'Please enter the password...'],
+    },
+    address: [
+      { city: String },
+      { country: String },
+      { add1: String },
+      { add2: String },
+      { zipCode: String },
+      { addressType: String },
     ],
+
     role: {type:String,default:'user'},
     avatar: {
         url: {type:String,require:true},
         public_id: {type:String,require:true},
-    },
-    resetPasswordToken : String,
-    resetPasswrodDate: Date,    
 
- },
- { versionKey:false}
-); 
- const UserModel = mongoose.model('user',userSchema)
- module.exports = UserModel
+    },
+    resetPaswordToken: String,
+    resetPasswordTime: Date,
+  },
+  { versionKey: false }
+);
+
+const UserModel = mongoose.model('User', userSchema);
+
+module.exports = UserModel;

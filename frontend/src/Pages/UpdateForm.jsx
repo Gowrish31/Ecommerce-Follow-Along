@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router';
 import { Upload } from 'lucide-react';
 import axios from 'axios';
-function ProductEntryPage() {
+function UpdateForm() {
+  const { id } = useParams();
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -12,7 +14,7 @@ function ProductEntryPage() {
     category: '',
   });
   const [errorInput, setInputError] = useState('');
-  const [Images, setImages] = useState([]);
+  const [Images, setImages] = useState();
 
   const handleImageUpload = (e) => {
     const ImagesArray = Array.from(e.target.files);
@@ -61,22 +63,31 @@ function ProductEntryPage() {
     formDataBody.append('originalPrice', originalPrice);
     formDataBody.append('quantity', quantity);
     formDataBody.append('rating', rating);
-
     console.log(Images);
-    Images.map((ele) => {
-      formDataBody.append('files', ele);
-    });
+    if (Images) {
+      Images?.map((ele) => {
+        formDataBody.append('files', ele);
+      });
+    } else {
+      formDataBody.append('images', formData.images);
+    }
 
-    console.log(formDataBody);
+    console.log('formDataBody', formDataBody);
+    console.log('Images', Images);
+    console.log('formData.images', formData);
     // axios request post
     let requestdata = await axios
-      .post('http://localhost:8080/product/create-product', formDataBody, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
+      .put(
+        `http://localhost:8080/product/update-products/${id}`,
+        formDataBody,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      )
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
         return res;
       })
       .catch((er) => {
@@ -89,11 +100,23 @@ function ProductEntryPage() {
         console.log(
           `${pair[0]}: File - ${pair[1].name}, ${pair[1].type}, ${pair[1].size} bytes`
         );
-      } else {
-        console.log(`${pair[0]}: ${pair[1]}`);
       }
     }
   };
+
+  useEffect(() => {
+    const getDataForId = async () => {
+      const singleData = await axios.get(
+        `http://localhost:8080/product/get-single/${id}`
+      );
+      console.log(singleData);
+      setFormData(singleData.data.data);
+      setImages(singleData.data.data.images);
+      console.log('Images', Images);
+    };
+
+    getDataForId();
+  }, [id]);
   return (
     <div
       className="flex justify-center items-center border border-black"
@@ -192,4 +215,4 @@ function ProductEntryPage() {
   );
 }
 
-export default ProductEntryPage;
+export default UpdateForm;

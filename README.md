@@ -112,3 +112,17 @@ And implemented Form validation,
 - we display all the items or the products in a better structured way
 -we fetch the products using getproducts function in Homepage.jsx
 -finnaly we display in frontend
+
+
+## Milestone 13
+-we create a button in backend in card.jsx and PUT route for updateing
+-we create a page for auto filling in frontend for the updated data [id] except images 
+-In frontend  the input boxes is filled with data
+- finnaly fetch data from backend and once we have data 
+
+
+
+
+
+
+

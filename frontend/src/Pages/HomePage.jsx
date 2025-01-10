@@ -1,35 +1,55 @@
-import React, { useEffect, useState } from 'react'
-import Card from '../components/ProductCard/Card'
+import { useEffect, useState } from 'react';
+import Card from '../components/ProductCard/Card';
 import axios from 'axios';
-import { Car } from 'lucide-react';
+
 function HomePage() {
-    const [products, setProducts] = useState([])
+  const [data, setdata] = useState();
+  const fetchProduct = async () => {
+    const response = await axios.get(
+      'http://localhost:8080/product/get-products'
+    );
+    setdata(response.data.data);
+  };
 
-    const getProducts = async () => {
-      const response = await axios.get('http://localhost:8080/product/get-products');
-      setProducts(response.data.data);  
-    }
+  useEffect(() => {
+    console.log('clicked');
 
-    useEffect(()=>{
-      const callProducts = async () => {
-        await getProducts();
-      }
-      callProducts();
-    },[]);
-    console.log(products);
-    
-      
-  return(
-    <>
-    <div className='grid gap-4 grid-cols-3'>
-        {products.map( (element, index)=> ( 
-          <Card product = {element} key={index}/>
-        ))}
-        
+    const callhandle = async () => {
+      await fetchProduct();
+    };
+    callhandle();
+  }, []);
+  console.log(data);
+  const handleDelete = async (id) => {
+    console.log('id', id);
+    const data = await axios.delete(`http://localhost:8080/product/${id}`);
+    setdata(data.data.data);
+  };
+  return (
+    <div>
+      <h1 className="text-center">Home Page fro Follow along</h1>
+
+      <div className="grid grid-cols-3">
+        {data?.map((ele, index) => {
+          return (
+            <div key={index} style={{ margin: 'auto' }} className="border border-white">
+              <Card
+                title={ele.title}
+                image={ele.images[0] ? ele.images[0] : 'Product Image missing'}
+                Index={index}
+                description={ele.description}
+                originalPrice={ele.originalPrice}
+                discountedPrice={ele.discountedPrice}
+                rating={ele.rating}
+                id={ele._id}
+                handleDelete={handleDelete}
+              />
+            </div>
+          );
+        })}
+      </div>
     </div>
-    </>
-  )
-   
+  );
 }
 
-export default HomePage
+export default HomePage;

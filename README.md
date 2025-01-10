@@ -115,13 +115,16 @@ And implemented Form validation,
 
 
 ## Milestone 13
--we create a button in backend in card.jsx and PUT route for updateing
+-we create a update button in backend in card.jsx and PUT route for updateing
 -we create a page for auto filling in frontend for the updated data [id] except images 
 -In frontend  the input boxes is filled with data
 - finnaly fetch data from backend and once we have data 
 
 
-
+## Milestone 14
+-we create a delete button in backend in card.jsx 
+-connected a DELETE route in the backend
+-Delete button at the frontend with functionality to delete from the database.
 
 
 

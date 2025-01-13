@@ -127,5 +127,13 @@ And implemented Form validation,
 -Delete button at the frontend with functionality to delete from the database.
 
 
+## Milestone 15
+-In this milestone we created Navbar.jsx in navbar for frontend .
+
+## Milestone 16
+-In this Milestone we added Single Page product Details
+-Then we created Image Modal Component
+
+
 
 

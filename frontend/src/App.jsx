@@ -4,10 +4,12 @@ import Signup from './Pages/Signup';
 import Login from './Pages/Login';
 import ProductEntryPage from './Pages/ProductEntryPage';
 import UpdateForm from './Pages/UpdateForm';
+import Navbar from './components/navbar/Navbar';
 
 function App() {
   return (
     <>
+    <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/signup" element={<Signup />} />

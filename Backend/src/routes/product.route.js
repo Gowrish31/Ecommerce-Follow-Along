@@ -1,3 +1,4 @@
+// route
 const multer = require('multer');
 const express = require('express');
 const {
@@ -16,16 +17,14 @@ router.post(
 
   createProductController
 );
-
-router.get('/get-products', getProductDataController);
 router.put(
   '/update-products/:id',
   upload.array('files', 5),
   updateProductController
 );
 
+router.get('/get-products', getProductDataController);
 router.get('/get-single/:id', getSinglePRoductDocumentController);
-
 router.delete('/:id', deleteSingleProduct);
 
 module.exports = router;

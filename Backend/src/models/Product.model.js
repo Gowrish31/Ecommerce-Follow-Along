@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const SchemaObject = {
   title: { type: String, required: true },
@@ -7,20 +7,21 @@ const SchemaObject = {
   discountedPrice: { type: Number, required: true },
   originalPrice: { type: Number, required: true },
   quantity: { type: Number, required: true, default: 1 },
-  category: { type: String, required: true, enum: ['male', 'female', 'kids'] },
+  category: { type: String, required: true, enum: ["male", "female", "kids"] },
   images: [
     {
       type: String,
       required: true,
       default:
-        'https://static.vecteezy.com/system/resources/previews/018/922/122/non_2x/3d-gender-symbol-sign-png.png',
+        "https://static.vecteezy.com/system/resources/previews/018/922/122/non_2x/3d-gender-symbol-sign-png.png",
     },
   ],
+  userEmail: { type: String, required: true },
   //   ["https://imagelink.com","https://imagelink.com","https://imagelink.com" ]
 };
 
 const productSchema = new mongoose.Schema(SchemaObject, { versionKey: false });
 
-const ProductModel = mongoose.model('Product', productSchema);
+const ProductModel = mongoose.model("Product", productSchema);
 
 module.exports = ProductModel;

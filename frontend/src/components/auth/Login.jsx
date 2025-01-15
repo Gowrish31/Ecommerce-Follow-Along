@@ -1,11 +1,13 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import axios from "axios";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const [userCredentials, setUserCredentials] = useState({
-    userEmail: '',
-    userPassword: '',
+    userEmail: "",
+    userPassword: "",
   });
+  const navigate = useNavigate();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -15,7 +17,17 @@ function LoginPage() {
       [name]: value,
     });
   };
-
+  const handleClickLogin = async (e) => {
+    // axios request to backend
+    e.preventDefault();
+    const response = await axios.post("http://localhost:8080/user/login", {
+      email:userCredentials.userEmail,
+      password:userCredentials.userPassword
+    });
+    localStorage.setItem("token", response.data.token);
+    // console.log(data);
+    navigate("/");
+  };
 
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -26,7 +38,7 @@ function LoginPage() {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" action="#" method="POST">
+        <form className="space-y-6" onSubmit={handleClickLogin}>
           <div>
             <label
               htmlFor="userEmail"
@@ -57,10 +69,7 @@ function LoginPage() {
                 Password
               </label>
               <div className="text-sm">
-                <a
-                  href="#"
-                  className="font-semibold"
-                >
+                <a href="#" className="font-semibold">
                   Forgot password?
                 </a>
               </div>
@@ -86,8 +95,8 @@ function LoginPage() {
               Log in
             </button>
             <p className="text-center">
-          Do not have an account ? <Link to={'/signup'}>SignUp</Link>
-        </p>
+              Do not have an account ? <Link to={"/signup"}>SignUp</Link>
+            </p>
           </div>
         </form>
       </div>

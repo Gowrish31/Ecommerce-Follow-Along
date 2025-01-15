@@ -27,6 +27,7 @@ const createProductController = async (req, res) => {
         });
     });
 
+    console.log(req.userEmailAddress)
     const dataImages = await Promise.all(arrayImage);
     const StoreProductDetails = await ProductModel.create({
       title,
@@ -37,6 +38,7 @@ const createProductController = async (req, res) => {
       quantity,
       category,
       images: dataImages,
+      userEmail:req.userEmailAddress,
     });
     return res.status(201).send({
       message: 'Image Successfully Uploaded',

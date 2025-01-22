@@ -1,6 +1,7 @@
 const express = require("express");
 const userRouter = require("./routes/user.route.js");
 const productRouter = require("./routes/product.route.js");
+const cartRouter = require('./routes/Cart.route.js');
 if (process.env.NODE_ENV !== "PRODUCTION") {
   require("dotenv").config({
     path: "./src/config/.env",
@@ -19,5 +20,6 @@ app.get("/", (req, res) => {
 
 app.use("/user", userRouter);
 app.use("/product", productRouter);
+app.use('/cart', cartRouter);
 
 module.exports = app;

@@ -135,5 +135,8 @@ And implemented Form validation,
 -Then we created Image Modal Component
 
 
-
+## Milestone 17
+1. added Cart Schema,
+2. added cart route
+3. added Cart Controller [get and addToCart]
 

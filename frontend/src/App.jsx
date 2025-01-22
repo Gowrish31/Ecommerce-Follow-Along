@@ -7,6 +7,7 @@ import UpdateForm from './Pages/UpdateForm';
 // import navbar from './components/Navbar/navbar';
 import SinglePageProduct from './Pages/SingleProductPage';
 import Navbar from './components/Navbar/navbar';
+import CartPage from './Pages/CartPage';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/product-entry-page" element={<ProductEntryPage />} />
         <Route path="/update-form/:id" element={<UpdateForm />} />
         <Route path="/product-details/:id" element={<SinglePageProduct />} />
+        <Route path="/cart" element={<CartPage />} />
       </Routes>
     </>
   );

@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 function Card({
@@ -11,15 +12,30 @@ function Card({
   id,
   handleDelete,
 }) {
+  const handleAddToCart = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await axios.post(
+        `http://localhost:8080/cart/add-to-cart?token=${token}`,
+        { productId: id, quantity: 1 }
+      );
+      console.log('Product Added To Cart Successfully...');
+    } catch (er) {
+      alert(er.message);
+      console.log(er.message);
+    }
+  };
   return (
     <div className="w-80 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
       {/* Image Container */}
       <div className="relative">
-        <img
-          src={image}
-          className="w-full h-48 object-cover"
-          alt="Product Image missing"
-        />
+      <Link to={`/product-details/${id}`}>
+          <img
+            src={image}
+            className="w-full h-48 object-cover"
+            alt="Product Image missing"
+          />
+        </Link>
         <span className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-sm font-semibold">
           -20%
         </span>
@@ -55,8 +71,9 @@ function Card({
               {discountedPrice}
             </span>
           </div>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg transition-colors duration-200">
+          <button  onClick = {handleAddToCart} className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg transition-colors duration-200">
             Add to cart
+            
           </button>
           <Link to={`/update-form/${id}`}>
             <button className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg transition-colors duration-200">

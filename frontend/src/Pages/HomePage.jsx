@@ -35,21 +35,17 @@ function HomePage() {
         {data?.map((ele, index) => {
           return (
             <div key = {index} style={{ margin: 'auto' }} className="border border-white">
-              <Link to={`/product-details/${ele._id}`}>
-                <Card
-                  title={ele.title}
-                  image={
-                    ele.images[0] ? ele.images[0] : 'Product Image missing'
-                  }
-                  Index={index}
-                  description={ele.description}
-                  originalPrice={ele.originalPrice}
-                  discountedPrice={ele.discountedPrice}
-                  rating={ele.rating}
-                  id={ele._id}
-                  handleDelete={handleDelete}
-                />
-              </Link>
+              <Card
+                title={ele.title}
+                image={ele.images[0] ? ele.images[0] : 'Product Image missing'}
+                Index={index}
+                description={ele.description}
+                originalPrice={ele.originalPrice}
+                discountedPrice={ele.discountedPrice}
+                rating={ele.rating}
+                id={ele._id}
+                handleDelete={handleDelete}
+              />
             </div>
           );
         })}

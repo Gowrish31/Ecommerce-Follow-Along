@@ -63,7 +63,7 @@ async function CreateUSer(req, res) {
 const generateToken = (data) => {
   // jwt
   const token = jwt.sign(
-    { name: data.name, email: data.email },
+    { name: data.name, email: data.email, id: data.id },
     process.env.SECRET_KEY
   );
   return token;
@@ -155,15 +155,12 @@ const login = async (req, res) => {
           password: checkUserPresentinDB.password,
         };
         const token = generateToken(data);
-
-        return res
-          .status(200)
-          .cookie('token', token)
-          .send({
-            message: 'User logged in successfully..',
-            success: true,
-            token,
-          });
+        return res.status(200).cookie('token', token).send({
+          message: 'User logged in successfully..',
+          success: true,
+          token,
+        });
+        
       }
     );
 

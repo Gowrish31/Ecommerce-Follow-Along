@@ -147,3 +147,7 @@ And implemented Form validation,
 1. Added Cart UI
 2. Fetched Cart Details of the User 
 
+## milestone 20
+1. Added UI for profile route
+2. created route for user data
+

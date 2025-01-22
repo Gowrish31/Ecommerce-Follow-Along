@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt'); //hashes the password only
 
 const cloudinary = require('../utils/cloudinary.js');
 const fs = require('fs');
+const { default: mongoose } = require('mongoose');
 
 require('dotenv').config({
   path: '../config/.env',
@@ -33,10 +34,7 @@ async function CreateUSer(req, res) {
     email: email,
     password: password,
   });
-  // send mail
-  // 1. Link (http://localhost:5173/activation/{token})
-  // 2. send the above link as mail
-  // 3. direct the user to activation page
+
   const data = {
     Name,
     email,
@@ -56,9 +54,7 @@ async function CreateUSer(req, res) {
   return res.send('User Created Successfully');
 }
 
-// 1. Check if there is any user already present with same creds
-// 2. if yes/true send respinse as user already exists
-// 3. if no /false cerate a user in database
+
 
 const generateToken = (data) => {
   // jwt
@@ -170,4 +166,27 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { CreateUSer, verifyUserController, signup, login };
+const getUSerData = async (req, res) => {
+  const userId = req.UserId;
+  try {
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(401).send({ message: 'Send Valid User Id' });
+    }
+    const checkUserPresentinDB = await UserModel.findOne({ _id: userId });
+    if (!checkUserPresentinDB) {
+      return res
+        .status(401)
+        .send({ message: 'Please Signup, user not present' });
+    }
+    return res.status(200).send({ data: checkUserPresentinDB });
+  } catch (er) {
+    return res.status(500).send({ message: er.message });
+  }
+};
+module.exports = {
+  CreateUSer,
+  verifyUserController,
+  signup,
+  login,
+  getUSerData,
+};

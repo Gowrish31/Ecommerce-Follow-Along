@@ -143,3 +143,7 @@ And implemented Form validation,
 ## MileStone 18
 1.added  Get Cart Data Route
 
+## Milestone 19
+1. Added Cart UI
+2. Fetched Cart Details of the User 
+

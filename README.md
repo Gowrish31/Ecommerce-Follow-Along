@@ -140,3 +140,6 @@ And implemented Form validation,
 2. added cart route
 3. added Cart Controller [get and addToCart]
 
+## MileStone 18
+1.added  Get Cart Data Route
+

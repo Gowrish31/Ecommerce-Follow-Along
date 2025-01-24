@@ -1,12 +1,13 @@
 import React, { useState } from "react";
+import axios from 'axios';
 
 const AddressCard = () => {
   const [address, setAddress] = useState({
     city: "",
     country: "",
-    ad1: "",
-    ad2: "",
-    zipcode: "",
+    add1: "",
+    add2: "",
+    zipCode: "",
     addressType: "",
   });
 
@@ -18,9 +19,14 @@ const AddressCard = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async  (e) => {
     e.preventDefault();
     console.log("Address Submitted:", address);
+    const token = localStorage.getItem("token");
+    if(!token){
+        return alert("Token is missing, Please login");
+    }
+    await axios.post(`http://localhost:8080/user/add-address?token=${token}`, address)
   };
 
   return (

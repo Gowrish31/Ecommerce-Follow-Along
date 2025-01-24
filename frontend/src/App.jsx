@@ -9,6 +9,7 @@ import SinglePageProduct from './Pages/SingleProductPage';
 import Navbar from './components/Navbar/navbar';
 import CartPage from './Pages/CartPage';
 import ProfilePage from './Pages/Profile';
+import AddressCard from './components/AddressComp/AdressCard';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/product-details/:id" element={<SinglePageProduct />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/addressCard" element={<AddressCard />} />
       </Routes>
     </>
   );

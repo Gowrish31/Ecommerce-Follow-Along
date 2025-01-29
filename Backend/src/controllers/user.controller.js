@@ -1,15 +1,15 @@
-const UserModel = require('../models/user.model.js');
-const ErrorHandler = require('../utils/ErrorHandler.js');
-const transporter = require('../utils/sendmail.js');
-const jwt = require('jsonwebtoken'); //tokenisation of user data (every communication that happend between server(beknd) and client(ft))
-const bcrypt = require('bcrypt'); //hashes the password only
+const UserModel = require("../models/user.model.js");
+const ErrorHandler = require("../utils/ErrorHandler.js");
+const transporter = require("../utils/sendmail.js");
+const jwt = require("jsonwebtoken"); //tokenisation of user data (every communication that happend between server(beknd) and client(ft))
+const bcrypt = require("bcrypt"); //hashes the password only
 
-const cloudinary = require('../utils/cloudinary.js');
-const fs = require('fs');
-const { default: mongoose } = require('mongoose');
+const cloudinary = require("../utils/cloudinary.js");
+const fs = require("fs");
+const { default: mongoose } = require("mongoose");
 
-require('dotenv').config({
-  path: '../config/.env',
+require("dotenv").config({
+  path: "../config/.env",
 });
 
 async function CreateUSer(req, res) {
@@ -20,7 +20,7 @@ async function CreateUSer(req, res) {
   });
 
   if (CheckUserPresent) {
-    const error = new ErrorHandler('Already Present in DB', 400);
+    const error = new ErrorHandler("Already Present in DB", 400);
 
     return res.status(404).send({
       message: error.message,
@@ -42,19 +42,17 @@ async function CreateUSer(req, res) {
   };
   const token = generateToken(data);
   await transporter.sendMail({
-    to: 'naayaankumar@gmail.com',
-    from: 'naayaankumar@gmail.com',
-    subject: 'verification email from follow along project',
-    text: 'Text',
+    to: "naayaankumar@gmail.com",
+    from: "naayaankumar@gmail.com",
+    subject: "verification email from follow along project",
+    text: "Text",
     html: `<h1>Hello world   http://localhost:5173/activation/${token} </h1>`,
   });
 
   await newUser.save();
 
-  return res.send('User Created Successfully');
+  return res.send("User Created Successfully");
 }
-
-
 
 const generateToken = (data) => {
   // jwt
@@ -79,10 +77,10 @@ async function verifyUserController(req, res) {
     if (verifyUser(token)) {
       return res
         .status(200)
-        .cookie('token', token)
+        .cookie("token", token)
         .json({ token, success: true });
     }
-    return res.status(403).send({ message: 'token expired' });
+    return res.status(403).send({ message: "token expired" });
   } catch (er) {
     return res.status(403).send({ message: er.message });
   }
@@ -93,18 +91,18 @@ const signup = async (req, res) => {
   try {
     const checkUserPresentinDB = await UserModel.findOne({ email: email });
     if (checkUserPresentinDB) {
-      return res.status(403).send({ message: 'User already present' });
+      return res.status(403).send({ message: "User already present" });
     }
     console.log(req.file, process.env.cloud_name);
     const ImageAddress = await cloudinary.uploader
       .upload(req.file.path, {
-        folder: 'uploads',
+        folder: "uploads",
       })
       .then((result) => {
         fs.unlinkSync(req.file.path);
         return result.url;
       });
-    console.log('url', ImageAddress);
+    console.log("url", ImageAddress);
 
     bcrypt.hash(password, 10, async function (err, hashedPassword) {
       try {
@@ -121,7 +119,7 @@ const signup = async (req, res) => {
           },
         });
 
-        return res.status(201).send({ message: 'User created successfully..' });
+        return res.status(201).send({ message: "User created successfully.." });
       } catch (er) {
         return res.status(500).send({ message: er.message });
       }
@@ -151,12 +149,11 @@ const login = async (req, res) => {
           password: checkUserPresentinDB.password,
         };
         const token = generateToken(data);
-        return res.status(200).cookie('token', token).send({
-          message: 'User logged in successfully..',
+        return res.status(200).cookie("token", token).send({
+          message: "User logged in successfully..",
           success: true,
           token,
         });
-        
       }
     );
 
@@ -170,13 +167,13 @@ const getUSerData = async (req, res) => {
   const userId = req.UserId;
   try {
     if (!mongoose.Types.ObjectId.isValid(userId)) {
-      return res.status(401).send({ message: 'Send Valid User Id' });
+      return res.status(401).send({ message: "Send Valid User Id" });
     }
     const checkUserPresentinDB = await UserModel.findOne({ _id: userId });
     if (!checkUserPresentinDB) {
       return res
         .status(401)
-        .send({ message: 'Please Signup, user not present' });
+        .send({ message: "Please Signup, user not present" });
     }
     return res.status(200).send({ data: checkUserPresentinDB });
   } catch (er) {
@@ -188,6 +185,7 @@ const AddressController = async (req, res) => {
   const userId = req.UserId;
   const { city, country, add1, add2, zipCode, addressType } = req.body;
   try {
+    console.log(req.body);
     const userFindOne = await UserModel.findOne({ _id: userId });
     if (!userFindOne) {
       return res
@@ -218,6 +216,25 @@ const AddressController = async (req, res) => {
     });
   }
 };
+const getAddressController = async (req, res) => {
+  const userId = req.UserId;
+  try {
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(401).send({ message: 'Please login, un-Authorised' });
+    }
+    const checkUser = await UserModel.findOne({ _id: userId }, { address: 1 });
+    if (!checkUser) {
+      return res.status(401).send({ message: 'Please signup, un-Authorised' });
+    }
+    return res.status(200).send({
+      userInfo: checkUser,
+      message: 'Success',
+      success: true,
+    });
+  } catch (er) {
+    return res.status(500).send({ message: er.message });
+  }
+};
 
 module.exports = {
   CreateUSer,
@@ -226,4 +243,5 @@ module.exports = {
   login,
   getUSerData,
   AddressController,
+  getAddressController,
 };

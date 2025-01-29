@@ -151,6 +151,12 @@ And implemented Form validation,
 1. Added UI for profile route
 2. created route for user data
 
-## milestone 20
+## milestone 21
 -created a new component address card
 -added address card code in adresscard.jsx
+
+## milestone 22
+-added backend endpoint for address
+
+## milestone 23
+-added checkpoint button for the cart

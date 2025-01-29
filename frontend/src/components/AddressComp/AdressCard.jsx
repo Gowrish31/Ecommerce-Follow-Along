@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from 'axios';
+import axios from "axios";
 
 const AddressCard = () => {
   const [address, setAddress] = useState({
@@ -7,7 +7,7 @@ const AddressCard = () => {
     country: "",
     add1: "",
     add2: "",
-    zipCode: "",
+    zipCode: 0,
     addressType: "",
   });
 
@@ -19,13 +19,14 @@ const AddressCard = () => {
     }));
   };
 
-  const handleSubmit =async  (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Address Submitted:", address);
     const token = localStorage.getItem("token");
-    if(!token){
-        return alert("Token is missing, Please login");
+    if (!token) {
+      return alert("Token is missing, Please login");
     }
+    console.log(address);
     await axios.post(`http://localhost:8080/user/add-address?token=${token}`, address)
   };
 
@@ -39,7 +40,7 @@ const AddressCard = () => {
           </label>
           <input
             type="text"
-            name="ad1"
+            name="add1"
             value={address.ad1}
             onChange={handleChange}
             placeholder="Enter address line 1"
@@ -53,7 +54,7 @@ const AddressCard = () => {
           </label>
           <input
             type="text"
-            name="ad2"
+            name="add2"
             value={address.ad2}
             onChange={handleChange}
             placeholder="Enter address line 2"
@@ -61,9 +62,7 @@ const AddressCard = () => {
           />
         </div>
         <div>
-          <label className="block text-gray-700 font-medium mb-1">
-            City:
-          </label>
+          <label className="block text-gray-700 font-medium mb-1">City:</label>
           <input
             type="text"
             name="city"
@@ -93,9 +92,9 @@ const AddressCard = () => {
             ZIP Code:
           </label>
           <input
-            type="text"
-            name="zipcode"
-            value={address.zipcode}
+            type="number"
+            name="zipCode"
+            value={address.zipCode}
             onChange={handleChange}
             placeholder="Enter ZIP code"
             className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-300"

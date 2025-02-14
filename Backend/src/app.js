@@ -3,6 +3,7 @@ const userRouter = require("./routes/user.route.js");
 const productRouter = require("./routes/product.route.js");
 const cartRouter = require('./routes/Cart.route.js');
 const orderRoute = require('./routes/order.route.js')
+const PaymentRouter = require('./routes/Payment.route.js');
 if (process.env.NODE_ENV !== "PRODUCTION") {
   require("dotenv").config({
     path: "./src/config/.env",
@@ -23,5 +24,6 @@ app.use("/user", userRouter);
 app.use("/product", productRouter);
 app.use('/cart', cartRouter);
 app.use('/orders',orderRoute)
+app.use('/payment', PaymentRouter);
 
 module.exports = app;

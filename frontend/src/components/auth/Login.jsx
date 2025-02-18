@@ -1,8 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { setUserEmail } from '../../Redux/User/UserActions';
+import { setEmail } from '../../Redux/User/UsersSlice';
 
 function LoginPage() {
+  const dispatch = useDispatch();
   const [userCredentials, setUserCredentials] = useState({
     userEmail: "",
     userPassword: "",
@@ -20,10 +24,13 @@ function LoginPage() {
   const handleClickLogin = async (e) => {
     // axios request to backend
     e.preventDefault();
-    const response = await axios.post("http://localhost:8080/user/login", {
-      email:userCredentials.userEmail,
-      password:userCredentials.userPassword
-    });
+    const response = await axios.post("http://localhost:8080/user/login", 
+      // email:userCredentials.userEmail,
+      // password:userCredentials.userPassword
+      userCredentials
+    );
+    console.log(userCredentials);
+    dispatch(setUserEmail(userCredentials.email));
     localStorage.setItem("token", response.data.token);
     // console.log(data);
     navigate("/");

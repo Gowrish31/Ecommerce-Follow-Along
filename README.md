@@ -160,3 +160,30 @@ And implemented Form validation,
 
 ## milestone 23
 -added checkpoint button for the cart
+
+## Milestone24 - Created Order Confirmation Page
+1. Created a page to check the products which were already added to cart.
+
+## Milestone 25 - Added Endpoint for receiving products details.
+1. Created a product model/schema for storing the data of the items which are to be orderd.
+2. Created a product controller for handling the porcess of checking if the products exists or not.
+
+## Milestone 26 - Added Endpoint for Receiving User Mails.
+1.  Created an user endpoint for receving mails from the user's end.
+2. Using the id, all the orders placed from the user's side can be fetched.
+
+## Milestone 27 - Created Orders Page.
+1. Created an 'Orders' page to display all the user's orders.
+
+## Milestone 28 - Created Cancel Button.
+1. Created a cancel button for every order in the user's order page.
+2. Created a backend endpoint to handle deleting the order.
+
+## Milestone 29 & 30 - Integrated Payment Gateway.
+1. A Razorpay account was created, and access to the Razorpay Developer .  
+2. When clicked on the confirm order button, the payment gateway would open and allow the user to make an online payment .
+
+### Milestone 31 - Implemented Global State Management.
+1. Use Redux to store and manage the user's email across the application.  
+2. Ensure components can access and update global state efficiently without prop drilling.  
+

@@ -1,15 +1,13 @@
-const UserModel = require("../models/user.model.js");
-const ErrorHandler = require("../utils/ErrorHandler.js");
-const transporter = require("../utils/sendmail.js");
-const jwt = require("jsonwebtoken"); //tokenisation of user data (every communication that happend between server(beknd) and client(ft))
-const bcrypt = require("bcrypt"); //hashes the password only
-
-const cloudinary = require("../utils/cloudinary.js");
-const fs = require("fs");
-const { default: mongoose } = require("mongoose");
-
-require("dotenv").config({
-  path: "../config/.env",
+const UserModel = require('../models/user.model.js');
+const ErrorHandler = require('../utils/ErrorHandler.js');
+const transporter = require('../utils/sendmail.js');
+const jwt = require('jsonwebtoken'); //tokenisation of user data (every communication that happend between server(beknd) and client(ft))
+const bcrypt = require('bcrypt'); //hashes the password only
+const cloudinary = require('../utils/cloudinary.js');
+const fs = require('fs');
+const { default: mongoose } = require('mongoose');
+require('dotenv').config({
+  path: '../config/.env',
 });
 
 async function CreateUSer(req, res) {
@@ -20,7 +18,7 @@ async function CreateUSer(req, res) {
   });
 
   if (CheckUserPresent) {
-    const error = new ErrorHandler("Already Present in DB", 400);
+    const error = new ErrorHandler('Already Present in DB', 400);
 
     return res.status(404).send({
       message: error.message,
@@ -34,7 +32,10 @@ async function CreateUSer(req, res) {
     email: email,
     password: password,
   });
-
+  // send mail
+  // 1. Link (http://localhost:5173/activation/{token})
+  // 2. send the above link as mail
+  // 3. direct the user to activation page
   const data = {
     Name,
     email,
@@ -42,17 +43,21 @@ async function CreateUSer(req, res) {
   };
   const token = generateToken(data);
   await transporter.sendMail({
-    to: "naayaankumar@gmail.com",
-    from: "naayaankumar@gmail.com",
-    subject: "verification email from follow along project",
-    text: "Text",
+    to: 'naayaankumar@gmail.com',
+    from: 'naayaankumar@gmail.com',
+    subject: 'verification email from follow along project',
+    text: 'Text',
     html: `<h1>Hello world   http://localhost:5173/activation/${token} </h1>`,
   });
 
   await newUser.save();
 
-  return res.send("User Created Successfully");
+  return res.send('User Created Successfully');
 }
+
+// 1. Check if there is any user already present with same creds
+// 2. if yes/true send respinse as user already exists
+// 3. if no /false cerate a user in database
 
 const generateToken = (data) => {
   // jwt
@@ -77,10 +82,10 @@ async function verifyUserController(req, res) {
     if (verifyUser(token)) {
       return res
         .status(200)
-        .cookie("token", token)
+        .cookie('token', token)
         .json({ token, success: true });
     }
-    return res.status(403).send({ message: "token expired" });
+    return res.status(403).send({ message: 'token expired' });
   } catch (er) {
     return res.status(403).send({ message: er.message });
   }
@@ -91,19 +96,19 @@ const signup = async (req, res) => {
   try {
     const checkUserPresentinDB = await UserModel.findOne({ email: email });
     if (checkUserPresentinDB) {
-      return res.status(403).send({ message: "User already present" });
+      return res.status(403).send({ message: 'User already present' });
     }
     console.log(req.file, process.env.cloud_name);
     const ImageAddress = await cloudinary.uploader
       .upload(req.file.path, {
-        folder: "uploads",
+        folder: 'uploads',
       })
       .then((result) => {
         fs.unlinkSync(req.file.path);
         return result.url;
       });
-    console.log("url", ImageAddress);
 
+    console.log('url', ImageAddress);
     bcrypt.hash(password, 10, async function (err, hashedPassword) {
       try {
         if (err) {
@@ -119,7 +124,7 @@ const signup = async (req, res) => {
           },
         });
 
-        return res.status(201).send({ message: "User created successfully.." });
+        return res.status(201).send({ message: 'User created successfully..' });
       } catch (er) {
         return res.status(500).send({ message: er.message });
       }
@@ -127,6 +132,7 @@ const signup = async (req, res) => {
 
     //
   } catch (er) {
+    console.log(er);
     return res.status(500).send({ message: er.message });
   }
 };
@@ -149,11 +155,19 @@ const login = async (req, res) => {
           password: checkUserPresentinDB.password,
         };
         const token = generateToken(data);
-        return res.status(200).cookie("token", token).send({
-          message: "User logged in successfully..",
-          success: true,
-          token,
-        });
+
+        return res
+          .status(200)
+          .cookie('token', token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'Strict',
+          })
+          .send({
+            message: 'User logged in successfully..',
+            success: true,
+            token,
+          });
       }
     );
 
@@ -167,37 +181,38 @@ const getUSerData = async (req, res) => {
   const userId = req.UserId;
   try {
     if (!mongoose.Types.ObjectId.isValid(userId)) {
-      return res.status(401).send({ message: "Send Valid User Id" });
+      return res.status(401).send({ message: 'Send Valid User Id' });
     }
+
     const checkUserPresentinDB = await UserModel.findOne({ _id: userId });
     if (!checkUserPresentinDB) {
       return res
         .status(401)
-        .send({ message: "Please Signup, user not present" });
+        .send({ message: 'Please Signup, user not present' });
     }
+
     return res.status(200).send({ data: checkUserPresentinDB });
   } catch (er) {
     return res.status(500).send({ message: er.message });
   }
 };
 
-const AddressController = async (req, res) => {
+const AddAddressController = async (req, res) => {
   const userId = req.UserId;
-  const { city, country, add1, add2, zipCode, addressType } = req.body;
+  const { city, country, address1, address2, zipCode, addressType } = req.body;
   try {
-    console.log(req.body);
     const userFindOne = await UserModel.findOne({ _id: userId });
     if (!userFindOne) {
       return res
         .status(404)
-        .send({ message: "User not found", success: false });
+        .send({ message: 'User not found', success: false });
     }
 
     const userAddress = {
       country,
       city,
-      add1,
-      add2,
+      address1,
+      address2,
       zipCode,
       addressType,
     };
@@ -207,16 +222,49 @@ const AddressController = async (req, res) => {
 
     return res
       .status(201)
-      .send({ message: "User Address Added", success: true, response });
+      .send({ message: 'User Address Added', success: true, response });
   } catch (er) {
-    return res.status(500).send({
-      message: "Internval Server Error",
-      error: er.message,
-      success: false,
-    });
+    return res.status(500).send({ message: er.message });
   }
 };
-const getAddressController = async (req, res) => {
+
+const DeleteAddyController = async (req, res) => {
+  const userId = req.UserId;
+  const { id } = req.params;
+  try {
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res
+        .status(401)
+        .send({ message: 'Un-Authorised please signup', sucess: false });
+    }
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res
+        .status(404)
+        .send({ message: 'Address Id is in-valid', sucess: false });
+    }
+
+    const checkIfUSerPresent = await UserModel.findOne({ _id: userId });
+    if (!checkIfUSerPresent) {
+      return res
+        .status(401)
+        .send({ message: 'Un-Authorised please signup', sucess: false });
+    }
+
+    const response = await UserModel.findOneAndUpdate(
+      { _id: userId },
+      { $pull: { address: { _id: id } } },
+      { new: true }
+    );
+
+    return res
+      .status(201)
+      .send({ message: 'User Address deleted', success: true, response });
+  } catch (er) {
+    return res.status(500).send({ message: er.message, sucess: false });
+  }
+};
+
+const GetAddressConroller = async (req, res) => {
   const userId = req.UserId;
   try {
     if (!mongoose.Types.ObjectId.isValid(userId)) {
@@ -226,6 +274,7 @@ const getAddressController = async (req, res) => {
     if (!checkUser) {
       return res.status(401).send({ message: 'Please signup, un-Authorised' });
     }
+
     return res.status(200).send({
       userInfo: checkUser,
       message: 'Success',
@@ -235,13 +284,13 @@ const getAddressController = async (req, res) => {
     return res.status(500).send({ message: er.message });
   }
 };
-
 module.exports = {
+  GetAddressConroller,
   CreateUSer,
   verifyUserController,
   signup,
   login,
   getUSerData,
-  AddressController,
-  getAddressController,
+  AddAddressController,
+  DeleteAddyController,
 };

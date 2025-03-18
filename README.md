@@ -1,162 +1,151 @@
-# Ecommerce-Follow-Along\
+# Project Milestones
 
-## Milestone 1: Project Overview
+## **Milestone 1: Project Overview**
+- **Authentication**: Implemented login, logout, and signup functionality.
+- **Product Page**: Displays all available products.
+- **Orders Page**: Shows orders for each user.
+- **Payment Gateway**: Integrated for secure transactions.
 
-This project is part of a hands-on MERN stack series to build an e-commerce application.
-Features are:
-1)Authentication: Secure login, signup, and logout.
-2)Product Management: Display products with images, descriptions, and prices.
-3)Orders Page: User-specific order history.
-4)Payment Gateway: Secure transactions and order confirmation.
-#Technologies
-MongoDB for data storage , Express.js for backend APIs , React.js for the user interface , Node.js for server-side logic.
+## **Milestone 2: Backend and Frontend Setup**
+- Created a `frontend` folder, initialized a React app, and installed dependencies.
+- Configured **TailwindCSS** using **PostCSS**.
+- Created `Authorization` folder containing:
+  - `Login` Page
+  - `Signup` Page
+- Created a `backend` folder and installed:
+  - Express
+  - Mongoose
+  - Nodemon
+  - CORS
 
-# Ecommerce-Follow-Along\
+## **Milestone 3: Server and Database Setup**
+- Set up **MongoDB Atlas** and **Express** server.
+- Configured server to listen on a designated port.
+- Added an **error handling** folder for debugging.
 
-## Milestone 2: 
-In this milestone we created structure of the project by  setting  up the frontend and backend.
-- First creating a structured folder for the project
-- Then Setting up  React app for the frontend and a Node.js server for the backend and installing express,mongoose,nodemon and cors
-- Implemented  Tailwind CSS for styling.
-- Then created Login Page for authorization .
+## **Milestone 4: User Model & File Upload**
+- Created **User Model** to define user data structure.
+- Created **User Controller** to handle user-related operations.
+- Configured **Multer** for file uploads.
 
-## Milestone 3:
--Setting  up the node.js server to handle api requests.
+## **Milestone 5: Signup and Navigation**
+- Completed signup page.
+- Linked signup page to login page for easy navigation.
 
--Setting up  folders for  backend code 
+## **Milestone 6: User Activation & Email Verification**
+- Implemented **JWT Token** for user activation.
+- Sent activation links via **Nodemailer**.
+- Created an endpoint to verify users.
 
--Connecting  application  the to MongoDB
+## **Milestone 7: Password Encryption & Authentication**
+- Used **bcrypt** to hash passwords before storing them.
+- Created an endpoint to fetch user data based on email/username.
+- Validated user credentials using bcrypt.
 
--Connecting  the database and server
+## **Milestone 8: Product Display**
+- Created **Card Component**.
+- Displayed products with dummy data on the **Home Page**.
 
--Create a error handler
-## Milestone 4:
-- Creating User Model :-A model is like a detailed map or plan,designing how a user’s data (like name, email, and password) will look in the database.
-- Creating User Controller for handelling all the actions such as  adding a new user , updating their info and even accesing data.
-- Finnaly Setting up Multer for file uploads 
+## **Milestone 9: Product Entry Form**
+- Created a form for product entry.
+- Used **FormData** to send data over network calls.
 
-## Milestone 5:
-In this assignment we created the frontend UI for users to register by filling out their details
+## **Milestone 10: Product Schema & Upload**
+- Defined **Product Schema**.
+- Created an endpoint to store product data in **MongoDB via Cloudinary & Multer**.
 
-created a sign up page which included:
--Name,
+## **Milestone 11: Fetch Products API**
+- Created an endpoint to fetch all products from the database.
+- Sent data to the client.
 
--Email,
+## **Milestone 12: Fetching Products in Frontend**
+- Used **Axios** to fetch product data from backend.
+- Implemented **useEffect** to load products.
+- Used **Card Component** to display product details.
 
--Password
+## **Milestone 13: Product Update Feature**
+- Backend: Added **PUT route** for updating products.
+- Frontend: Created a page for editing product details.
 
-And implemented Form validation,
+## **Milestone 14: Delete Product Feature**
+- Added **handleDelete** button.
+- Created an endpoint to delete individual products.
 
+## **Milestone 15: Navbar & CORS Fix**
+- Implemented **Navbar Component**.
+- Resolved **CORS issues**.
 
-## Milestone 6:
-1) Generated a JWT token for the user at signup.
-2) Created a verification link with the token.
-3) Configured Nodemailer to send the email with the verification link.
-4) Created an endpoint to verify the token and activate the user.
+## **Milestone 16: Single Product Page & Image Modal**
+- Created **Single Page Product Details**.
+- Implemented **Image Modal Component**.
 
-## Milestone 7
- - In this assignment we created two routes , one for signup and login page
- -  Signup:
-   1. requested  the data sent by the user
-   2. if user is  present in the DB , login success, else  Create a user and store the name, email, password in DB
-     
-- For Login:
-   1. Take the data from  req.body
-   2. Checking if the user entry is present in DB .
-      1. if present  create a token and send that as cookies 
-      2. else return saying Signup first
-   
+## **Milestone 17: Cart Functionality**
+- Defined **Cart Schema**.
+- Created **Cart Routes**.
+- Built **Cart Controller** (get & addToCart functions).
 
+## **Milestone 18: Fetch Cart Data**
+- Implemented a backend route to fetch cart details.
 
+## **Milestone 19: Cart UI & Data Fetching**
+- Created a UI for the cart.
+- Fetched user cart details from backend.
 
+## **Milestone 20: User Profile Page**
+- Added UI for **Profile Route**.
+- Created backend route to fetch user details.
 
-## Milestone 6:
-1) Generated a JWT token for the user at signup.
-2) Created a verification link with the token.
-3) Configured Nodemailer to send the email with the verification link.
-4) Created an endpoint to verify the token and activate the user.
+## **Milestone 21: Address Management**
+- Created a page for adding address details (city, country, etc.).
+- Backend endpoint to store address details.
 
-## Milestone 7
- - In this assignment we created two routes , one for signup and login page
- -  Signup:
-   1. requested  the data sent by the user
-   2. if user is  present in the DB , login success, else  Create a user and store the name, email, password in DB
-     
-- For Login:
-   1. Take the data from  req.body
-   2. Checking if the user entry is present in DB .
-      1. if present  create a token and send that as cookies 
-      2. else return saying Signup first
-   
+## **Milestone 22: Store Address in User Profile**
+- Created backend functionality to save address inside the user's profile.
 
-## Milestone 8
--Added a Card Component.
--Displayed all products using dummy data on the Home Page.
+## **Milestone 23: Address Selection Page & Orders Schema**
+- Created **Select Address Page** in frontend.
+- Defined **Order Schema** in backend.
 
-## Milestone 9
--Created a Product Entry Form.
--Used form data to send information through a network call.
+## **Milestone 24: Order Confirmation Page**
+- Created frontend page displaying **ordered products, selected address, and total price**.
 
-## Milestone 10
--Created a Product Schema.
--Built an endpoint to save data into the database
--Integrated Cloudinary and Multer for file handling
+## **Milestone 25: Place Order Backend Endpoint**
+- Created backend route to handle order placement.
 
+## **Milestone 26: Fetch User Orders**
+- Backend route to fetch all orders of a user.
 
-## Milestone 11
-- writing the get endpoint and fetch data from the database.
-- tested using postman 
--added new route 
+## **Milestone 27: User Orders Page**
+- Created frontend page displaying user orders.
 
-## Milestone 12
-- we display all the items or the products in a better structured way
--we fetch the products using getproducts function in Homepage.jsx
--finnaly we display in frontend
+## **Milestone 28: Order Cancellation Feature**
+- Added **Cancel Order Button** in **My Orders**.
+- Created a backend endpoint to handle order cancellations.
 
+## **Milestone 29: Payment Integration**
+- Added **Razorpay API** for online payments.
 
-## Milestone 13
--we create a update button in backend in card.jsx and PUT route for updateing
--we create a page for auto filling in frontend for the updated data [id] except images 
--In frontend  the input boxes is filled with data
-- finnaly fetch data from backend and once we have data 
+## **Milestone 30: Razorpay Implementation**
+- Completed **online payment** integration.
 
+## **Milestone 31: Global State Management**
+- Configured **Redux Store** with `userReducer`.
+- Created `setEmail` function in **userActions.js** to manage email state.
 
-## Milestone 14
--we create a delete button in backend in card.jsx 
--connected a DELETE route in the backend
--Delete button at the frontend with functionality to delete from the database.
+## **Milestone 32: Storing Email in Global State**
+- Used **Dispatch** method to store email in global state.
+- Used **useSelector** to access email in different pages.
 
+## **Milestone 33: JWT Token & Cookies**
+- Generated **JWT Token**.
+- Created a **cookie** to store the token.
 
-## Milestone 15
--In this milestone we created Navbar.jsx in navbar for frontend .
+## **Milestone 34: JWT Authentication**
+- Extracted **JWT Token** from cookies.
+- Sent token to the server for validation.
 
-## Milestone 16
--In this Milestone we added Single Page product Details
--Then we created Image Modal Component
+## **Milestone 35: Deployment**
+- **Deployed Frontend**.
+- **Deployed Backend**.
 
-
-## Milestone 17
-1. added Cart Schema,
-2. added cart route
-3. added Cart Controller [get and addToCart]
-
-## MileStone 18
-1.added  Get Cart Data Route
-
-## Milestone 19
-1. Added Cart UI
-2. Fetched Cart Details of the User 
-
-## milestone 20
-1. Added UI for profile route
-2. created route for user data
-
-## milestone 21
--created a new component address card
--added address card code in adresscard.jsx
-
-## milestone 22
--added backend endpoint for address
-
-## milestone 23
--added checkpoint button for the cart
+---

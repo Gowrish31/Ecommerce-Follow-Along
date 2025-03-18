@@ -187,3 +187,5 @@ And implemented Form validation,
 1. Use Redux to store and manage the user's email across the application.  
 2. Ensure components can access and update global state efficiently without prop drilling.  
 
+
+
